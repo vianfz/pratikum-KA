@@ -1,9 +1,27 @@
+
 pipeline {
     agent any
+
+    environment {
+        IMAGE_NAME = 'simple-app'
+    }
+
     stages {
-        stage('Hello') {
+        stage('Checkout') {
             steps {
-                echo 'My Jenkins Pipeline'
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Source code berhasil disiapkan.'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t simple-app:latest .'
             }
         }
     }
