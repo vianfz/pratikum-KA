@@ -1,6 +1,5 @@
 
 from flask import Flask
-<<<<<<< HEAD
 import sqlite3
 import os
 
@@ -13,6 +12,8 @@ DATABASE = os.environ.get(
 
 
 def init_db():
+    os.makedirs(os.path.dirname(DATABASE) or ".", exist_ok=True)
+
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
 
@@ -45,9 +46,7 @@ def home():
 
     hasil = "<h1>Data Mahasiswa</h1><ul>"
     for mahasiswa in data:
-        hasil += (
-            f"<li>{mahasiswa[1]} - {mahasiswa[2]}</li>"
-        )
+        hasil += f"<li>{mahasiswa[1]} - {mahasiswa[2]}</li>"
     hasil += "</ul><p>Database berhasil terhubung!</p>"
 
     return hasil
@@ -55,14 +54,4 @@ def home():
 
 if __name__ == "__main__":
     init_db()
-=======
-
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Halo! Aplikasi berhasil berjalan melalui Jenkins dan Docker."
-
-if __name__ == "__main__":
->>>>>>> origin/main
     app.run(host="0.0.0.0", port=5000)
